@@ -122,13 +122,13 @@ dr-xr-xr-x 2 root root  2048 Jun  3  2024 isolinux
   HANodeName=Zabbix_Node01      # HA集群配置节点名，应集群全局唯一
   NodeAddress=10.0.1.41:10051   # 此处指定内网实际ip与监听端口，则ListenPort可不用设置
   ```
-  配置文件参考详见本仓库/zabbix/zabbix_server.conf
+  配置文件参考详见本仓库[server-conf](/zabbix/zabbix_server.conf)
 
   编辑`/etc/zabbix/zabbix_agentd.conf`配置文件，找到以下配置进行修改
   ```
   Server=10.0.1.41, 10.0.1.42   # 如填写VIP地址理论上亦可
   ```
-  配置文件参考详见本仓库/zabbix/zabbix_agentd.conf
+  配置文件参考详见本仓库[agentd-conf](/zabbix/zabbix_agentd.conf)
   
 - *配置nginx*
   
@@ -137,7 +137,7 @@ dr-xr-xr-x 2 root root  2048 Jun  3  2024 isolinux
   listen          8000;             # zabbix web访问端口        
   server_name     example.com;      # 服务器名
   ```
-  配置文件参考详见本仓库/zabbix/nginx/zabbix.conf
+  配置文件参考详见本仓库[nginx-conf](/zabbix/nginx/zabbix.conf)
 
   **此处暂不启动zabbix相关服务，待后续软件安装完毕后再启动**
 
