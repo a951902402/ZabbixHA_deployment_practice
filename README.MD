@@ -46,11 +46,22 @@
 
 包含的文件项如下：
 
-  ZabbixHA_deployment_practice/
-  ├─ README.MD                    -----架构细节介绍
-  ├─ Deploy_Guide.MD              -----架构部署过程描述与相关代码展示
-  ├─ zabbix
-  │    ├─
+ZABBIXHA_DEPLOYMENT_PRACTICE
+|   Deploy_Guide.MD              -----架构部署过程描述与相关代码展示
+|   README.MD                    -----架构总体介绍
+|   
++---consul
++---mysql
++---public
+|   \---system
+|           NetAdapter_Setting.png
+|           
+\---zabbix
+    |   zabbix_agentd.conf
+    |   zabbix_server.conf
+    |   
+    \---nginx
+            zabbix.conf
 
 ## 本仓库架构适用场景
 
@@ -58,6 +69,6 @@
 
 ## 备注
 
-1. 此实践共仅使用四台服务器，适用于数据安全性要求不高的环境，较合理的企业级部署应当按照**2台**及以上Zabbix服务器部署（*按照官方文档指引部署配置文件即可*），**3台**及以上MySQL服务器（*1台Source与2台Replica，有较大数据读写需求的可以做数据库读写分离*）
-2. 部署过程未使用Docker/K8s等虚拟化环境，consul服务可以考虑部署于虚拟化环境中
+1. 此实践共仅使用四台虚拟机，适用于数据安全性要求不高的环境，较合理的企业级部署应当按照**2台**及以上Zabbix服务器部署（*按照官方文档指引部署配置文件即可*），**3台**及以上MySQL服务器（*1台Source与2台Replica，有较大数据读写需求的可以做数据库读写分离*）
+2. 部署过程未使用Docker/K8s等应用虚拟化环境，consul服务可以考虑部署虚拟化
 3. Zabbix前端与后端也可考虑分离部署，本实践不包含此项
