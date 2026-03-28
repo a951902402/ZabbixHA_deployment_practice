@@ -144,14 +144,14 @@
     MySQL默认启用了validate_password插件，可以查看并调整当前密码策略配置，实际应考虑使用情况对应调整，以下语句仅供参考
     ```
     # 查看当前密码策略配置
-    SHOW VARIABLES LIKE 'validate_password%';
+    mysql> SHOW VARIABLES LIKE 'validate_password%';
     # 调整密码策略配置语句示例
-    SET GLOBAL validate_password.policy=LOW;
-    SET GLOBAL validate_password.length=4;
+    mysql> SET GLOBAL validate_password.policy=LOW;
+    mysql> SET GLOBAL validate_password.length=4;
     ```
-- MySQL SSL连接
+- MySQL SSL连接(*可选*)
 
-    MySQL 8.4版本默认强制启用SSL连接，在创建数据库用户与连接数据库时，我们应当考虑使用SSL连接，本实践仅使用默认生成的证书，不做其他改动。
+    MySQL 8.4版本可以在用户登录与主从复制数据传输过程等场景下启用SSL连接
     
     以下语句可以看到默认SSL状态与生成的证书信息
     ```
@@ -200,7 +200,22 @@
     
     配置文件参考详见
     
-    Source:[source/my.cnf](/mysql/source/my.cnf)，位于#SSL pem configuration。
+    Source:[source/my.cnf](/mysql/source/my.cnf)，位于#SSL pem configuration。<br>
     Replica:[replica/my.cnf](/mysql/replica/my.cnf)，位于#SSL pem configuration。
 
+    为用户登录过程中强制SSL连接，可以在添加或更改用户时添加require SSL选项，例如
+    ```
+    mysql> CREATE USER 'need_ssl_user'@'%' IDENTIFIED BY 'password' REQUIRE SSL;
+    ```
+    当启用要求SSL后，用户登录时会强制使用SSL连接，否则会提示`ERROR 1045 (28000): Access denied for user 'need_ssl_user'@'%' (using password: YES)`，需要指定`--ssl-mode=require`选项才能成功登录，在登录后可以查看当前连接加密方式。
+    ```
+    mysql> SHOW SESSION STATUS LIKE 'Ssl_cipher';
+    +---------------+------------------------+
+    | Variable_name | Value                  |
+    +---------------+------------------------+
+    | Ssl_cipher    | TLS_AES_128_GCM_SHA256 |
+    +---------------+------------------------+
+    1 row in set (0.01 sec)
+    ```
+    
     <p style="display: flex; justify-content: space-between;"><a href="02-Zabbix_installation.md"><strong>&lt;--回到02-Zabbix_installation.md</strong></a><a href="04-MySQL_Replication_Setup.md"><strong>到下一页04-MySQL_Replication_Setup.md--&gt;</strong></a></p>
