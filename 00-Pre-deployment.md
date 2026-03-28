@@ -26,5 +26,3 @@ CPU与内存根据实际需求部署，此处选择CPU=1*2 内存=8GB。
 
 每台虚拟机均部署两张网卡，网卡1用于4台虚拟机内联，网卡2用于外网安装软件。<br>
 ![网卡部署情况](/public/system/NetAdapter_Setting.png "网卡部署情况")
-<br>
-<p style="display: flex; justify-content: space-between;"><a href="Readme.md"><strong>&lt;--回到Readme.md</strong></a><a href="01-System_env_setup.md"><strong>到下一页01-System_env_setup.md--&gt;</strong></a></p>

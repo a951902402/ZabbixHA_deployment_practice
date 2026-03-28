@@ -77,5 +77,3 @@ ZABBIXHA_DEPLOYMENT_PRACTICE
 1. 此实践共仅使用四台虚拟机，适用于数据安全性要求不高的环境，较合理的企业级部署应当按照**2台**及以上Zabbix服务器部署（*按照官方文档指引部署配置文件即可*），**3台**及以上MySQL服务器（*1台Source与2台Replica，有较大数据读写需求的可以做数据库读写分离*）
 2. 部署过程未使用Docker/K8s等应用虚拟化环境，consul服务可以考虑部署虚拟化
 3. Zabbix前端与后端也可考虑分离部署，本实践不包含此项
-
-<p align='right'><a href="00-Pre-deployment.md"><strong>到下一页00-Pre-deployment.md--&gt;</strong></a></p>

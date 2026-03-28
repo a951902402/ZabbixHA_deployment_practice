@@ -59,7 +59,7 @@
   编辑`/etc/zabbix/zabbix_server.conf`配置文件，找到以下配置位置进行修改
   ```
   # 数据库配置
-  DBHost=10.0.1.50        # 如遇到连接数据库问题，可将此处修改为实际主库地址10.0.1.51，待解决连接问题后再改回虚拟IP地址10.0.1.50
+  DBHost=10.0.1.50        # 如遇到连接数据库问题，可将此处修改为实际源库地址10.0.1.51，待解决连接问题后再改回虚拟IP地址10.0.1.50
   DBName=zabbix           # DBName与DBUser默认为zabbix，检查是否值正确即可
   DBUser=zabbix
   DBPassword=zabbix       # DBPassword应按实际情况修改，此处使用zabbix作为密码
@@ -88,5 +88,3 @@
   配置文件参考详见本仓库[nginx-conf](/zabbix/nginx/zabbix.conf)
 
   **此处暂不启动zabbix相关服务，待后续软件安装完毕后再启动**
-
-  <p style="display: flex; justify-content: space-between;"><a href="01-System_env_setup.md"><strong>&lt;--回到01-System_env_setup.md</strong></a><a href="03-MySQL_installation.md"><strong>到下一页03-MySQL_installation.md--&gt;</strong></a></p>

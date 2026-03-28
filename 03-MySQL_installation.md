@@ -90,8 +90,8 @@
 
     配置文件参考详见
     
-    Source:[source/my.cnf.origin](/mysql/source/my.cnf.origin)，此为配置主从复制前的配置文件。
-    Replica:[replica/my.cnf.origin](/mysql/replica/my.cnf.origin)，此为配置主从复制前的配置文件。
+    Source:[source/my.cnf.origin](/mysql/source/my.cnf.origin)，此为配置源副本复制前的配置文件。
+    Replica:[replica/my.cnf.origin](/mysql/replica/my.cnf.origin)，此为配置源副本复制前的配置文件。
 
     现在启动mysql服务并设置开机自启
     ```
@@ -151,7 +151,7 @@
     ```
 - MySQL SSL连接(*可选*)
 
-    MySQL 8.4版本可以在用户登录与主从复制数据传输过程等场景下启用SSL连接
+    MySQL 8.4版本可以在用户登录与源副本复制数据传输过程等场景下启用SSL连接
     
     以下语句可以看到默认SSL状态与生成的证书信息
     ```
@@ -217,5 +217,3 @@
     +---------------+------------------------+
     1 row in set (0.01 sec)
     ```
-    
-    <p style="display: flex; justify-content: space-between;"><a href="02-Zabbix_installation.md"><strong>&lt;--回到02-Zabbix_installation.md</strong></a><a href="04-MySQL_Replication_Setup.md"><strong>到下一页04-MySQL_Replication_Setup.md--&gt;</strong></a></p>
