@@ -10,7 +10,7 @@
     ```
     repo添加完成后检查仓库目录应可以看到MySQL repo
     ```
-    [root@zbxs1 ~]# ls -l /etc/yum.repos.d/mysql*
+    [root@zbxdb1 ~]# ls -l /etc/yum.repos.d/mysql*
     -rw-r--r--. 1 root root 3191 Jan  7 19:20 /etc/yum.repos.d/mysql-community-debuginfo.repo
     -rw-r--r--. 1 root root 2871 Jan  7 19:20 /etc/yum.repos.d/mysql-community.repo
     -rw-r--r--. 1 root root 2991 Jan  7 19:20 /etc/yum.repos.d/mysql-community-source.repo
@@ -19,7 +19,7 @@
     
     由于CentOS 8默认启用MySQL 8.0模块，为安装8.4版本，需要先行禁用CentOS 8自带的MySQL模块，然后使用官方提供的仓库安装MySQL 8.4，先查询启用的MySQL模块
     ```
-    [root@zbxs1 ~]# dnf module list mysql
+    [root@zbxdb1 ~]# dnf module list mysql
     Last metadata expiration check: 0:08:15 ago on Fri 27 Mar 2026 08:33:48 PM CST.
     CentOS Stream 8 - Media - AppStream
     Name                     Stream                     Profiles                              Summary
@@ -29,7 +29,7 @@
     ```
     可以看到8.0模块处于default状态，执行以下命令禁用8.0模块
     ```
-    [root@zbxs1 ~]# dnf module disable mysql -y
+    [root@zbxdb1 ~]# dnf module disable mysql -y
     Last metadata expiration check: 0:15:30 ago on Fri 27 Mar 2026 08:33:48 PM CST.
     Dependencies resolved.
     ========================================================================================================================
@@ -45,7 +45,7 @@
     ```
     再次检查MySQL模块状态，确认已禁用
     ```
-    [root@zbxs1 ~]# dnf module list mysql
+    [root@zbxdb1 ~]# dnf module list mysql
     Last metadata expiration check: 0:17:17 ago on Fri 27 Mar 2026 08:33:48 PM CST.
     CentOS Stream 8 - Media - AppStream
     Name                    Stream                       Profiles                             Summary
@@ -100,7 +100,7 @@
     ```
     检查mysql服务状态
     ```
-    [root@zbxs1 ~]# systemctl status mysqld
+    [root@zbxdb1 ~]# systemctl status mysqld
     ● mysqld.service - MySQL Server
     Loaded: loaded (/usr/lib/systemd/system/mysqld.service; enabled; vendor preset: disabled)
     Active: active (running) since Fri 2026-03-27 21:27:45 CST; 2min 49s ago
@@ -113,8 +113,8 @@
     CGroup: /system.slice/mysqld.service
             └─2470 /usr/sbin/mysqld
 
-    Mar 27 21:27:40 zbxs1 systemd[1]: Starting MySQL Server...
-    Mar 27 21:27:45 zbxs1 systemd[1]: Started MySQL Server.
+    Mar 27 21:27:40 zbxdb1 systemd[1]: Starting MySQL Server...
+    Mar 27 21:27:45 zbxdb1 systemd[1]: Started MySQL Server.
     ```
     服务启动后，mysql会自动创建用户'root'@'localhost'，并在`/var/log/mysqld.log`日志文件中记录初始root用户的随机密码，使用以下命令查看日志获取初始密码
     ```
@@ -122,7 +122,7 @@
     ```
     使用获取的初始密码登录mysql，强制修改密码后即可正常使用
     ```
-    [root@zbxs1 ~]# mysql -uroot -p
+    [root@zbxdb1 ~]# mysql -uroot -p
     Enter password:
     Welcome to the MySQL monitor.  Commands end with ; or \g.
     Your MySQL connection id is 8
