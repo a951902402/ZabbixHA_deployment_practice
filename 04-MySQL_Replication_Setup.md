@@ -132,49 +132,52 @@ MySQL 8.4版本支持二进制日志与基于全局事务ID两种方式实现主
     ```
     至此，MySQL主从复制配置完成，并且验证成功。
 
-- *可选主从复制安全性配置*
+> [!NOTE]
+> 可选主从复制安全性配置
 
-    1. 从复制用户名密码储存
+以下配置可以根据使用需求设置，非启用Replication强制配置要求。
 
-        在`CHANGE REPLICATION SOURCE TO`语句中，我们直接指定了复制用户的用户名与密码，在启动复制后，在`/var/log/mysqld.log`日志中我们会看到如下一条告警日志
-        ```
-        2026-03-28T10:09:19.359933Z 5 [Warning] [MY-010897] [Repl] Storing MySQL user name or password information in the connection metadata repository is not secure and is therefore not recommended. Please consider using the USER and PASSWORD connection options for START REPLICA; see the 'START REPLICA Syntax' in the MySQL Manual for more information.
-        ```
-        我们可以不在`CHANGE REPLICATION SOURCE TO`语句中指定复制用户的用户名与密码，而是在`START REPLICA`语句中使用USER和PASSWORD选项指定复制用户的用户名与密码
-        ```
-        mysql> START REPLICA USER='repl' PASSWORD='123456';
-        ```
-        关于此配置的更多信息请参考MySQL官方文档[15.4.2.4 START REPLICA Statement](https://dev.mysql.com/doc/refman/8.4/en/start-replica.html)
+- 从复制用户名密码储存
 
-    2. 启用中继日志
+    在`CHANGE REPLICATION SOURCE TO`语句中，我们直接指定了复制用户的用户名与密码，在启动复制后，在`/var/log/mysqld.log`日志中我们会看到如下一条告警日志
+    ```
+    2026-03-28T10:09:19.359933Z 5 [Warning] [MY-010897] [Repl] Storing MySQL user name or password information in the connection metadata repository is not secure and is therefore not recommended. Please consider using the USER and PASSWORD connection options for START REPLICA; see the 'START REPLICA Syntax' in the MySQL Manual for more information.
+    ```
+    我们可以不在`CHANGE REPLICATION SOURCE TO`语句中指定复制用户的用户名与密码，而是在`START REPLICA`语句中使用USER和PASSWORD选项指定复制用户的用户名与密码
+    ```
+    mysql> START REPLICA USER='repl' PASSWORD='123456';
+    ```
+    关于此配置的更多信息请参考MySQL官方文档[15.4.2.4 START REPLICA Statement](https://dev.mysql.com/doc/refman/8.4/en/start-replica.html)
 
-        在MySQL 8.4版本中，存在一个[Bug #2212](https://bugs.mysql.com/bug.php?id=2122)，如果从复制使用默认的基于主机的中继日志文件名，则会导致修改主机名后导致基于GTID的主从复制失效，并出现以下错误`Failed to open the relay log and Could not find target log during relay log initialization. `，并且在配置主从复制后，可以在`/var/log/mysqld.log`日志中我们会看到如下一条告警日志
-        ```
-        2026-03-28T10:09:19.357277Z 0 [Warning] [MY-010604] [Repl] Neither --relay-log nor --relay-log-index were used; so replication may break when this MySQL server acts as a replica and has his hostname changed!! Please use '--relay-log=zbxs2-relay-bin' to avoid this problem.
-        ```
-        在MySQL服务器中也可查询到中继日志的相关变量信息，默认情况下中继日志命名以当前主机名开头
-        ```
-        mysql> show variables like 'relay%';
-        +-----------------------+--------------------------------------+
-        | Variable_name         | Value                                |
-        +-----------------------+--------------------------------------+
-        | relay_log             | zbxs2-relay-bin                      |
-        | relay_log_basename    | /var/lib/mysql/zbxs2-relay-bin       |
-        | relay_log_index       | /var/lib/mysql/zbxs2-relay-bin.index |
-        | relay_log_purge       | ON                                   |
-        | relay_log_recovery    | OFF                                  |
-        | relay_log_space_limit | 0                                    |
-        +-----------------------+--------------------------------------+
-        6 rows in set (0.01 sec)
-        ```
+- 启用中继日志
 
-        因此建议在从服务器的`/etc/my.cnf`配置文件中配置并指定中继日志文件名，例如
-        ```
-        [mysqld]
-        relay_log = /var/lib/mysql/mysql-relay
-        relay_log_index =  /var/lib/mysql/mysql-relay.index    # 在只指定了relay_log系统变量，relay_log_index将默认用relay_log的值作为中继日志索引文件的基名。
-        ```
-        关于中继日志请参考MySQL官方文档[19.2.4.1 The Relay Log](https://dev.mysql.com/doc/refman/8.4/en/replica-logs-relaylog.html)
+    在MySQL 8.4版本中，存在一个[Bug #2212](https://bugs.mysql.com/bug.php?id=2122)，如果从复制使用默认的基于主机的中继日志文件名，则会导致修改主机名后导致基于GTID的主从复制失效，并出现以下错误`Failed to open the relay log and Could not find target log during relay log initialization. `，并且在配置主从复制后，可以在`/var/log/mysqld.log`日志中我们会看到如下一条告警日志
+    ```
+    2026-03-28T10:09:19.357277Z 0 [Warning] [MY-010604] [Repl] Neither --relay-log nor --relay-log-index were used; so replication may break when this MySQL server acts as a replica and has his hostname changed!! Please use '--relay-log=zbxdb2-relay-bin' to avoid this problem.
+    ```
+    在MySQL服务器中也可查询到中继日志的相关变量信息，默认情况下中继日志命名以当前主机名开头
+    ```
+    mysql> show variables like 'relay%';
+    +-----------------------+--------------------------------------+
+    | Variable_name         | Value                                |
+    +-----------------------+--------------------------------------+
+    | relay_log             | zbxdb2-relay-bin                      |
+    | relay_log_basename    | /var/lib/mysql/zbxdb2-relay-bin       |
+    | relay_log_index       | /var/lib/mysql/zbxdb2-relay-bin.index |
+    | relay_log_purge       | ON                                   |
+    | relay_log_recovery    | OFF                                  |
+    | relay_log_space_limit | 0                                    |
+    +-----------------------+--------------------------------------+
+    6 rows in set (0.01 sec)
+    ```
+
+    因此建议在从服务器的`/etc/my.cnf`配置文件中配置并指定中继日志文件名，例如
+    ```
+    [mysqld]
+    relay_log = /var/lib/mysql/mysql-relay
+    relay_log_index =  /var/lib/mysql/mysql-relay.index    # 在只指定了relay_log系统变量，relay_log_index将默认用relay_log的值作为中继日志索引文件的基名。
+    ```
+    关于中继日志请参考MySQL官方文档[19.2.4.1 The Relay Log](https://dev.mysql.com/doc/refman/8.4/en/replica-logs-relaylog.html)
 
   <p style="display: flex; justify-content: space-between;"><a href="03-MySQL_installation.md"><strong>&lt;--回到03-MySQL_installation.md</strong></a><a href="05.md"><strong>到下一页05.md--&gt;</strong></a></p>
 
