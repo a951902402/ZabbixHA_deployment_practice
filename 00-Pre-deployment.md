@@ -12,7 +12,7 @@
 | **php** | 8.2 | `dnf module switch-to php:8.2` | 与zabbix一同安装 |
 | **MySQL** | community-8.4.8 | <https://dev.mysql.com/downloads/repo/yum/> | 官网提供全容量rpm包下载 |
 | **Consul** | 1.22.2 | <https://developer.hashicorp.com/consul/install#linux> | 官网提供二进制安装下载 |
-| **Keepalived** | 2.1.5 | `dnf install keepalived` | 根据需要选择版本即可 |
+| **Keepalived** | 2.1.5 | `dnf install keepalived` | <https://keepalived.org/>，根据需要选择版本即可 |
 
 部署使用的4台虚拟机设定如下：
 | 名称 | IP地址 | 部署的软件 | 备注 |

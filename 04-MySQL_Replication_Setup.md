@@ -283,7 +283,7 @@ MySQL 8.4版本支持二进制日志与基于全局事务ID两种方式实现源
         # 在副本上
         mysql> INSTALL PLUGIN rpl_semi_sync_replica SONAME 'semisync_replica.so';
         ```
-        如果尝试安装插件时出现类似于此处所示的错误，则必须安装 libimf，可以在[https://dev.mysqlserver.cn/downloads/os-linux.html](https://dev.mysqlserver.cn/downloads/os-linux.html)获取
+        如果尝试安装插件时出现类似于此处所示的错误，则必须安装 libimf，可以在<https://dev.mysqlserver.cn/downloads/os-linux.html>获取
         ```
         ERROR 1126 (HY000): Can't open shared library
         '/usr/local/mysql/lib/plugin/semisync_source.so'
