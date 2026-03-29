@@ -98,7 +98,7 @@ Consul <https://developer.hashicorp.com/consul/install#linux>
     ```
     [root@zbxs1 ~]# dnf list installed consul*
     Installed Packages
-    consul.x86_64                                               1.22.6-1                                               @hashicorp
+    consul.x86_64                                               1.22.2-1                                               @hashicorp
     ```
 
 - *配置Consul*
