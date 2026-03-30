@@ -65,7 +65,7 @@ bind_addr = "10.0.1.41"
 # bootstraps the cluster. This allows an initial leader to be elected automatically.
 # This cannot be used in conjunction with the legacy -bootstrap flag. This flag requires
 # -server mode.
-#bootstrap_expect=3
+bootstrap_expect=1
 
 # encrypt
 # Specifies the secret key to use for encryption of Consul network traffic. This key must

@@ -30,9 +30,9 @@ client_addr = "0.0.0.0"
 # Enables the built-in web UI server and the required HTTP routes. This eliminates
 # the need to maintain the Consul web UI files separately from the binary.
 # Version 1.10 deprecated ui=true in favor of ui_config.enabled=true
-ui_config{
-  enabled = true
-}
+#ui_config{
+#  enabled = true
+#}
 
 # server
 # This flag is used to control if an agent is in server or client mode. When provided,

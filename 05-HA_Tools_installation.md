@@ -122,6 +122,7 @@ Consul <https://developer.hashicorp.com/consul/install#linux>
         enabled = true                 # 开启内置webUI管理，建议Server开启，agent不启用
     }
     server = true                      # 指定此服务器server模式为开启
+    bootstrap_expect=1                 # 指定server数量
 
     # agent端
     datacenter = "your dc name"
@@ -140,7 +141,7 @@ Consul <https://developer.hashicorp.com/consul/install#linux>
     server = false                     # 指定此服务器server模式为关闭，即agent模式
     retry_join = ["10.0.1.41"]         # 要加入集群联系server端地址，此参数值类型为数组
     ```
-    设定好`log_file`，还应检查值对应路径是否存在，否则启动时会报错提示找不到日志文件。
+    设定好`log_file`，还应检查值对应路径是否存在和consul用户是否有权限，否则启动时会报错提示找不到日志文件。
 
 - *启动Consul服务*
 
