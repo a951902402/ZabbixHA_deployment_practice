@@ -51,5 +51,49 @@
     systemctl enable zabbix-server zabbix-agent nginx php-fpm
     ```
 
-    浏览器访问Zabbix地址`http://10.0.1.40:8000`，端口为在nginx配置中设定值
-    
+    浏览器访问Zabbix地址`http://your_ip:port`，端口为在nginx配置中设定值，以下为安装过程示例
+
+    注意：主备都应进入Zabbix安装页面进行安装
+
+    1. 欢迎
+
+        ![语言设定](public/zabbix/lang_setting.png)
+
+    2. 检查必备条件
+
+        检查php等与zabbix运行相关的模块设定参数，有不通过需要对应检查
+        ![条件检查](public/zabbix/pre_selfcheck.png)
+
+    3. 配置数据库连接
+
+        MySQL插件`caching_sha2_password`要求安全连接，此处需要勾选数据库TLS加密，其他根据网络情况填写
+        ![配置数据库连接](public/zabbix/db_connections.png)
+
+    4. 基本设置
+
+        ![配置数据库连接](public/zabbix/basic_setting.png)
+
+    5. 安装前汇总
+
+        最后检查参数是否正确
+        ![安装前汇总](public/zabbix/final_check.png)
+
+    6. 结束
+
+        ![结束](public/zabbix/setup_finish.png)
+
+    完成后输入用户名密码登录，默认用户名密码为<br>
+    用户名：Admin<br>
+    密码：zabbix
+
+    Zabbix高可用到 仪表盘--系统信息 内查看<br>
+    ![高可用状态](public/zabbix/HA_Status.png)<br>
+    同时也可使用命令行执行`zabbix_server -R ha_status`查看HA状态
+    ```
+    [root@zms ~]# zabbix_server -R ha_status
+    Failover delay: 60 seconds
+    Cluster status:
+    #  ID                        Name                      Address                        Status      Last Access
+    1. cmndrzqzk0001dhap0hrqcxez Zabbix_Node01             10.0.1.41:10051                active      5s
+    2. cmndsyes70001d8ae97mrk0mr Zabbix_Node02             10.0.1.42:10051                standby     11s
+   ```
