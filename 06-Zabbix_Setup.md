@@ -10,7 +10,7 @@
     ```
     mysql> create database zabbix character set utf8mb4 collate utf8mb4_bin;
     mysql> create user 'zabbix'@'10.0.1.%' identified by 'zabbix';
-    grant all privileges on zabbix.* to 'zabbix'@'10.0.1.%';
+    mysql> grant all privileges on zabbix.* to 'zabbix'@'10.0.1.%';
     mysql> set global log_bin_trust_function_creators = 1;
     ```
 
@@ -21,6 +21,7 @@
 
     # MySQL上
     zcat server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p zabbix
+    Enter password:               # 此处输入MySQL用户zabbix的密码
     ```
     执行结束后登录MySQL源副本库查看是否均有zabbix库，如数据库复制正常工作，则在副本库上应当看到我们在主库执行插入的数据均已被同步
     ```
