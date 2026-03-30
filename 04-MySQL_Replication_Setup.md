@@ -84,7 +84,8 @@ MySQL 8.4版本支持二进制日志与基于全局事务ID两种方式实现源
      >     SOURCE_PORT = 3306,
      >     SOURCE_USER = 'repl',
      >     SOURCE_PASSWORD = '123456',
-     >     SOURCE_AUTO_POSITION = 1;
+     >     SOURCE_AUTO_POSITION = 1,
+     >     GET_SOURCE_PUBLIC_KEY = 1;
     ```
     配置完成后执行`START REPLICA;`启动复制，使用`SHOW REPLICA STATUS\G;`查看复制状态，确认Slave_IO_Running和Slave_SQL_Running均为Yes，且Last_Error为空，表示源副本复制配置成功。
     ```
