@@ -35,11 +35,11 @@
         [Zabbix VIP (Keepalived)]
                   |
       [Zabbix A] <--> [Zabbix B]
-        |                    |
-        |                    |
-    [MySQL VIP (Keepalived)] |
-        |                    |
-    [MySQL Source] <--> [MySQL Replica]
+                  |
+                  |
+       [MySQL VIP (Keepalived)]
+                  |
+  [MySQL Source] <--> [MySQL Replica]
         |                    |
     [Consul Agent]      [Consul Agent]
         |                    |
@@ -53,21 +53,104 @@
 
 ```
 ZABBIXHA_DEPLOYMENT_PRACTICE
-|   Deploy_Guide.MD              -----架构部署过程描述与相关代码展示
-|   README.MD                    -----架构总体介绍
-|   
+|   00-Pre-deployment.md            ---- 部署文档
+|   01-System_env_setup.md
+|   02-Zabbix_installation.md
+|   03-MySQL_installation.md
+|   04-MySQL_replication_setup.md
+|   05-HA_Tools_installation.md
+|   06-Zabbix_Setup.md
+|   07-Failover_deploy.md
+|   Readme.md                       ---- 总体介绍
+|
 +---consul
+|   +---agent
+|   |       consul.hcl
+|   |       replica_mysql_check.json
+|   |       source_mysql_check.json
+|   |
+|   \---server
+|           consul.hcl
+|           mysql_watch.json
+|
++---keepalived
+|   +---backup                      ---- zabbix backup
+|   |       keepalived.conf
+|   |
+|   +---master                      ---- zabbix master
+|   |       keepalived.conf
+|   |
+|   +---replica                     ---- mysql replica
+|   |       keepalived.conf
+|   |
+|   \---source                      ---- mysql source
+|           keepalived.conf
+|
 +---mysql
+|   +---replica
+|   |       my.cnf
+|   |       my.cnf.origin
+|   |
+|   \---source
+|           my.cnf
+|           my.cnf.origin
+|
 +---public
-|   \---system
-|           NetAdapter_Setting.png
-|           
+|   +---centos
+|   |       install_summary.png
+|   |       network.png
+|   |       partition.png
+|   |       software_selection.png
+|   |
+|   +---consul
+|   |       check_mysql.png
+|   |       services_mysql.png
+|   |
+|   +---keepalived
+|   |       arp_ping_after.png
+|   |       arp_ping_before.png
+|   |       pinging.png
+|   |
+|   +---mysql
+|   |       mysql_rpm_full.png
+|   |
+|   +---system
+|   |       NetAdapter_Setting.png
+|   |
+|   \---zabbix
+|           basic_setting.png
+|           db_connections.png
+|           final_check.png
+|           HA_Status.png
+|           lang_setting.png
+|           pre_selfcheck.png
+|           setup_finish.png
+|
++---shell
+|   +---backup
+|   |       zabbix_check_keepalived.sh
+|   |
+|   +---master
+|   |       mysql_failover.sh
+|   |       zabbix_check_keepalived.sh
+|   |
+|   +---replica
+|   |       mysql_check_health.sh
+|   |       mysql_check_keepalived.sh
+|   |       mysql_check_status.sh
+|   |
+|   \---source
+|           mysql_check_health.sh
+|           mysql_check_keepalived.sh
+|           mysql_check_status.sh
+|
 \---zabbix
     |   zabbix_agentd.conf
     |   zabbix_server.conf
-    |   
+    |
     \---nginx
             zabbix.conf
+
 ```
 
 ## 如何开始
