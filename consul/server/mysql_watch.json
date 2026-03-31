@@ -1,0 +1,10 @@
+{
+  "watches": [
+    {
+      "type": "checks",
+      "service": "mysql",
+      "handler_type": "script",
+      "args": ["/bin/sh", "-c", "/home/consul/mysql_check/mysql_failover.sh"]
+    }
+  ]
+}

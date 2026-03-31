@@ -1,0 +1,16 @@
+{
+  "service":
+  {
+    "name": "mysql",
+    "address": "10.0.1.50",
+    "port": 3306,
+    "tags": ["mysql", "source"],
+    "check": {
+      "id": "mysql-source",
+      "name": "mysql-source",
+      "args":["/bin/sh","-c","/home/consul/mysql_check/mysql_check_status.sh"],
+      "interval": "10s",
+      "timeout": "5s"
+    }
+  }
+}

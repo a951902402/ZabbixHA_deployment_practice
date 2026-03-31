@@ -90,8 +90,8 @@
 
     配置文件参考详见
     
-    Source:[source/my.cnf.origin](/mysql/source/my.cnf.origin)，此为配置源副本复制前的配置文件。
-    Replica:[replica/my.cnf.origin](/mysql/replica/my.cnf.origin)，此为配置源副本复制前的配置文件。
+    Source:[my.cnf.origin](/mysql/source/my.cnf.origin)，此为配置源副本复制前的配置文件。<br>
+    Replica:[my.cnf.origin](/mysql/replica/my.cnf.origin)，此为配置源副本复制前的配置文件。
 
     现在启动mysql服务并设置开机自启
     ```
@@ -200,8 +200,8 @@
     
     配置文件参考详见
     
-    Source:[source/my.cnf](/mysql/source/my.cnf)，位于#SSL pem configuration。<br>
-    Replica:[replica/my.cnf](/mysql/replica/my.cnf)，位于#SSL pem configuration。
+    Source:[my.cnf](/mysql/source/my.cnf)，位于#SSL pem configuration。<br>
+    Replica:[my.cnf](/mysql/replica/my.cnf)，位于#SSL pem configuration。
 
     为用户登录过程中强制SSL连接，可以在添加或更改用户时添加require SSL选项，例如
     ```

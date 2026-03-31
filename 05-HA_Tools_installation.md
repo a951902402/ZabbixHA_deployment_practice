@@ -23,8 +23,8 @@ Consul <https://developer.hashicorp.com/consul/install#linux>
 - *配置Keepalived*
 
     Keepalived配置文件位于`/etc/keepalived/keepalived.conf`，其中已给出较多示例，根据实际部署情况修改配置文件，参考配置见<br>
-    Master:[keepalived.conf](keepalived/Master/keepalived.conf)<br>
-    Backup:[keepalived.conf](keepalived/Backup/keepalived.conf)<br>
+    Master:[keepalived.conf](keepalived/master/keepalived.conf)<br>
+    Backup:[keepalived.conf](keepalived/backup/keepalived.conf)<br>
     ```
     global_defs {                      # 全局参数
         router_id idname               # 此处指定路由器ID，需集群全局唯一
@@ -104,8 +104,8 @@ Consul <https://developer.hashicorp.com/consul/install#linux>
 - *配置Consul*
 
     打开`/etc/consul.d/consul.hcl`配置文件，找到并修改以下配置，参考配置见<br>
-    Server:[consul:hcl](consul/server/consul.hcl)<br>
-    Agent:[consul:hcl](consul/agent/consul.hcl)<br>
+    Server:[consul.hcl](consul/server/consul.hcl)<br>
+    Agent:[consul.hcl](consul/agent/consul.hcl)<br>
     ```
     # server端
     datacenter = "your dc name"     # 服务器所在集群名称，server/agent一致
@@ -141,7 +141,7 @@ Consul <https://developer.hashicorp.com/consul/install#linux>
     server = false                     # 指定此服务器server模式为关闭，即agent模式
     retry_join = ["10.0.1.41"]         # 要加入集群联系server端地址，此参数值类型为数组
     ```
-    设定好`log_file`，还应检查值对应路径是否存在和consul用户是否有权限，否则启动时会报错提示找不到日志文件。
+    设定好`log_file`，还应检查值对应路径是否存在和consul用户是否有权限，建议使用`chown -R consul:consul /your_log_dir/`确保consul能够写入日志，否则启动时会报错提示找不到日志文件。
 
 - *启动Consul服务*
 
